@@ -67,7 +67,10 @@ app.get('/weather', (req,res) => {
 })
 
 app.get('*', (req, res) => {
-    res.send('My 404 page')
+    res.render('404', {
+        title : '404 page',
+        name : 'john doe'
+    })
 })
 
 app.listen(port, () => {
