@@ -15,6 +15,8 @@ const partialPath = path.join(__dirname, '../templates/partials')
 
 //setup static directory to serve
 app.use(express.static(pub_dir))
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 //setup handle bars
 app.set("view engine", 'hbs') //to setup handlebars engine
@@ -64,6 +66,19 @@ app.get('/weather', (req,res) => {
         })
     })
 
+})
+
+app.post('/weather-direct',(req,res)=>{
+    forecast(req.body.longitude, req.body.latitude, (error, data) =>{
+        if(error)
+            res.send({error})
+        res.send({
+              forecast : data,
+            //   location,
+            //   address : req.query.address  
+            })
+    })
+    // console.log(req.body)
 })
 
 app.get('*', (req, res) => {
