@@ -1,4 +1,4 @@
-const weatherForm = document.querySelector('form')
+const searchButton = document.querySelector('#search')
 const search = document.querySelector('input')
 const messageOne = document.querySelector('#message-1')
 const messageTwo = document.querySelector('#message-2')
@@ -17,7 +17,7 @@ const fetchData = (location) => {
     })
 }
 
-weatherForm.addEventListener('submit', (e) => {
+searchButton.addEventListener('click', (e) => {
     e.preventDefault()
 
     const location = search.value
@@ -28,8 +28,11 @@ weatherForm.addEventListener('submit', (e) => {
     fetchData(location)
 })
 
-findLocation.addEventListener('click',()=>{
+findLocation.addEventListener('click',(e)=>{
+    e.preventDefault()
     navigator.geolocation.getCurrentPosition((position) => {
+        messageOne.textContent = 'Loading...'
+        messageTwo.textContent = ''
         const longitude = position.coords.longitude
         const latitude = position.coords.latitude
         const data = {longitude,latitude}
